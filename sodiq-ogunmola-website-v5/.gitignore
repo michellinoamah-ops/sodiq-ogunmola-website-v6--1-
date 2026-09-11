@@ -1,0 +1,8 @@
+# Exclude heavy document files and large assets
+assets/docs/
+*.pdf
+*.zip
+
+# OS generated files
+.DS_Store
+Thumbs.db

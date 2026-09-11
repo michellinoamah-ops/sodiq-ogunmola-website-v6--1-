@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin dashboard. Sodiq Ogunmola</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="../assets/icons/favicon-32.png" sizes="32x32">
+<link rel="shortcut icon" href="../assets/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+
+<div class="admin-shell" id="dashboard-shell">
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <svg viewBox="0 0 200 200" aria-hidden="true"><polygon points="46,16 154,16 154,124 100,188 46,124" fill="#2E1245"/><polygon points="46,16 154,16 154,124 100,188 46,124" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round"/><line x1="72" y1="52" x2="128" y2="52" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="4"/><line x1="72" y1="70" x2="128" y2="70" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="4"/><line x1="72" y1="88" x2="118" y2="88" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="4"/><polyline points="66,112 88,132 138,78" fill="none" stroke="#2454C7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <b>Admin panel<span>Sodiq Ogunmola</span></b>
+    </div>
+    <nav class="admin-nav">
+      <a href="#" data-section="section-overview" class="active">Overview</a>
+      <a href="#" data-section="section-messages">Messages <span id="nav-badge-messages" class="badge hidden">0</span></a>
+      <a href="#" data-section="section-comments">Editorial Review <span id="nav-badge-comments" class="badge hidden">0</span></a>
+      <a href="#" data-section="section-publications">Publications</a>
+      <a href="../index.html" target="_blank">View live site &#8599;</a>
+    </nav>
+    <div class="admin-user">
+      <span class="email" id="admin-email">...</span>
+      <button id="logout-btn" class="btn btn-outline light btn-sm btn-block">Sign out</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+
+    <section id="section-overview" class="admin-section">
+      <div class="admin-topbar">
+        <div><h1>Overview</h1><p>A quick snapshot of enquiries, comments, and published research.</p></div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi"><b id="kpi-total-messages">-</b><span>Total messages</span></div>
+        <div class="kpi"><b id="kpi-unread-messages">-</b><span>Unread messages</span></div>
+        <div class="kpi"><b id="kpi-pending-comments">-</b><span>Comments pending review</span></div>
+        <div class="kpi"><b id="kpi-total-pubs">-</b><span>Publications in database</span></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Getting started</h2></div>
+        <div class="panel-body pad">
+          <p>This dashboard controls three things on the public site.</p>
+          <ul style="margin: 0 0 14px 18px; padding: 0; color: var(--text-dim);">
+            <li style="margin-bottom:8px;">Messages sent from the Contact page appear under <em>Messages</em>.</li>
+            <li style="margin-bottom:8px;">Comments submitted on any article appear under <em>Editorial Review</em> as pending until you approve or reject them. Approved comments appear publicly right away.</li>
+            <li>Anything you add under <em>Publications</em> replaces the built-in starter list shown on the public Publications page and homepage.</li>
+          </ul>
+          <p class="muted" style="margin:0;">New here? Open the Publications tab and click "Import starter list" to load the ten existing papers into the database, then edit them freely.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-messages" class="admin-section hidden">
+      <div class="admin-topbar">
+        <div><h1>Messages</h1><p>Enquiries submitted through the public contact form, newest first.</p></div>
+      </div>
+      <div class="panel">
+        <div class="panel-body" id="messages-list"><div class="empty-state">Loading messages...</div></div>
+      </div>
+    </section>
+
+    <section id="section-comments" class="admin-section hidden">
+      <div class="admin-topbar">
+        <div><h1>Editorial review desk</h1><p id="review-summary">Loading...</p></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Pending</h2></div>
+        <div class="panel-body" id="pending-comments-list"><div class="empty-state">Loading comments...</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Recently approved</h2></div>
+        <div class="panel-body" id="approved-comments-list"><div class="empty-state">Loading comments...</div></div>
+      </div>
+    </section>
+
+    <section id="section-publications" class="admin-section hidden">
+      <div class="admin-topbar">
+        <div><h1>Publications</h1><p>Control exactly what appears on the public Publications page.</p></div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button id="seed-pub-btn" class="btn btn-outline btn-sm">Import starter list</button>
+          <button id="add-pub-btn" class="btn btn-accent btn-sm">Add publication</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-body" id="admin-pub-list"><div class="empty-state">Loading publications...</div></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="modal-backdrop" id="pub-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="pub-modal-title">Add publication</h2>
+      <button class="modal-close" data-close-modal aria-label="Close">&times;</button>
+    </div>
+    <form id="pub-form">
+      <div class="field"><label for="pf-title">Title</label><input type="text" id="pf-title" name="title" required></div>
+      <div class="form-row">
+        <div class="field"><label for="pf-journal">Journal / outlet</label><input type="text" id="pf-journal" name="journal" required></div>
+        <div class="field"><label for="pf-year">Year</label><input type="text" id="pf-year" name="year" required></div>
+      </div>
+      <div class="field"><label for="pf-summary">Summary (shown on cards)</label><textarea id="pf-summary" name="summary" required></textarea></div>
+      <div class="field"><label for="pf-abstract">Full abstract (shown on the article page)</label><textarea id="pf-abstract" name="abstract"></textarea></div>
+      <div class="field"><label for="pf-tags">Tags</label><input type="text" id="pf-tags" name="tags" placeholder="Audit Technology, Fraud Detection"><div class="tag-input-note">Comma separated.</div></div>
+      <div class="form-row">
+        <div class="field"><label for="pf-file">PDF file path (optional)</label><input type="text" id="pf-file" name="file" placeholder="assets/docs/my-paper.pdf"></div>
+        <div class="field"><label for="pf-link">External link (optional)</label><input type="text" id="pf-link" name="link" placeholder="https://doi.org/..."></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label for="pf-authors">Authors</label><input type="text" id="pf-authors" name="authors" placeholder="Sodiq Ogunmola"></div>
+        <div class="field"><label for="pf-order">Display order</label><input type="number" id="pf-order" name="order" placeholder="1 = shown first"></div>
+      </div>
+      <div class="field"><label for="pf-image">Card image path</label><input type="text" id="pf-image" name="image" placeholder="assets/images/headshot.jpg"></div>
+      <button type="submit" class="btn btn-accent btn-block">Save publication</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="../assets/js/firebase-config.js"></script>
+<script src="../assets/js/content.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>initDashboard();</script>
+</body>
+</html>
