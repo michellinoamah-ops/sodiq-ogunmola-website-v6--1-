@@ -1,0 +1,43 @@
+rules_version = '2';
+
+// Deploy with: firebase deploy --only firestore:rules
+// (or paste into Firebase Console -> Firestore Database -> Rules)
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Public contact form: anyone can create a message, only a signed-in
+    // admin can read, update (mark as read) or delete them.
+    match /messages/{messageId} {
+      allow create: if request.resource.data.keys().hasAll(['name','email','message'])
+                    && request.resource.data.name is string
+                    && request.resource.data.email is string
+                    && request.resource.data.message is string
+                    && request.resource.data.name.size() < 200
+                    && request.resource.data.message.size() < 5000;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Publications: visible to everyone, editable only by a signed-in admin.
+    match /publications/{pubId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null;
+    }
+
+    // Comments: anyone can submit a comment, which always starts as
+    // "pending". Approved comments are publicly readable so the article
+    // page can show them; pending/rejected ones are only visible to a
+    // signed-in admin reviewing the queue. Only the admin can change
+    // status (approve/reject) or delete a comment.
+    match /comments/{commentId} {
+      allow create: if request.resource.data.status == "pending"
+                    && request.resource.data.keys().hasAll(['articleId','name','email','message','status'])
+                    && request.resource.data.name is string
+                    && request.resource.data.message is string
+                    && request.resource.data.name.size() < 120
+                    && request.resource.data.message.size() < 3000;
+      allow read: if resource.data.status == "approved" || request.auth != null;
+      allow update, delete: if request.auth != null;
+    }
+  }
+}
