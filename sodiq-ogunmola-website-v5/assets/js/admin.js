@@ -273,12 +273,19 @@ function articleTitle(articleId){
   return p ? p.title : articleId;
 }
 
+/* The publication year of the paper a comment was left on, so the review
+   desk shows which paper AND when it was published. */
+function articleYear(articleId){
+  const p = (typeof PUBLICATIONS !== "undefined" ? PUBLICATIONS : []).find(x => x.id === articleId);
+  return p && p.year ? p.year : "";
+}
+
 function reviewCardHTML(doc, pending){
   const c = doc.data();
   return `
   <div class="review-card" data-id="${doc.id}">
     <div class="who"><b>${esc(c.name)}</b> &middot; ${esc(c.email)}</div>
-    <span class="on-article">On: ${esc(articleTitle(c.articleId))}</span>
+    <span class="on-article">On: ${esc(articleTitle(c.articleId))}${articleYear(c.articleId) ? ` <span class="pub-year-badge">${esc(articleYear(c.articleId))}</span>` : ""}</span>
     <div class="body-text">${esc(c.message)}</div>
     <div class="row-actions">
       ${pending ? `<button class="btn btn-accent btn-sm" data-action="approve">Approve</button><button class="btn btn-danger btn-sm" data-action="reject">Reject</button>`
@@ -354,8 +361,8 @@ async function loadAdminPublications(){
       return `
       <div class="pub-row">
         <div>
-          <h3>${esc(p.title)}</h3>
-          <div class="meta">${esc(p.journal)} &middot; ${esc(p.year)}${p.order != null ? " &middot; order " + esc(p.order) : ""}</div>
+          <h3>${esc(p.title)} <span class="pub-year-badge">${esc(p.year)}</span></h3>
+          <div class="meta">${esc(p.journal)}${p.order != null ? " &middot; order " + esc(p.order) : ""}</div>
         </div>
         <div class="actions">
           <button class="btn btn-outline btn-sm" data-action="edit">Edit</button>
