@@ -226,7 +226,8 @@ async function loadReviewQueue(){
   const pendingList = document.getElementById("pending-comments-list");
   const approvedList = document.getElementById("approved-comments-list");
   const kpiPending = document.getElementById("kpi-pending-comments");
-  const kpiApproved = document.getElementById("kpi-approved-comments");
+  const navBadge = document.getElementById("nav-badge-comments");
+  const summaryEl = document.getElementById("review-summary");
   try{
     /* Single query, ordered by createdAt, split client-side. This avoids
        needing a Firestore composite index for status+createdAt (which
@@ -240,10 +241,9 @@ async function loadReviewQueue(){
     const approvedDocs = all.filter(doc => doc.data().status === "approved").slice(0, 30);
 
     kpiPending.textContent = pendingDocs.length;
-    kpiApproved.textContent = approvedDocs.length;
-    document.getElementById("nav-badge-comments").textContent = pendingDocs.length || "";
-    document.getElementById("nav-badge-comments").classList.toggle("hidden", !pendingDocs.length);
-    document.getElementById("review-summary").textContent = `${pendingDocs.length} pending, ${approvedDocs.length} approved`;
+    navBadge.textContent = pendingDocs.length || "";
+    navBadge.classList.toggle("hidden", !pendingDocs.length);
+    summaryEl.textContent = `${pendingDocs.length} pending, ${approvedDocs.length} approved`;
 
     pendingList.innerHTML = pendingDocs.length === 0
       ? `<div class="empty-state">No comments waiting for review.</div>`

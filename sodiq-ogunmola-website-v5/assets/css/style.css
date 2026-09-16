@@ -404,3 +404,59 @@ p{ margin: 0 0 1.1em; max-width: 66ch; color: var(--text-dim); }
 .narrow{ max-width: 680px; }
 .skip-link{ position: absolute; left: -9999px; top: 0; background: var(--accent); color: #fff; padding: 12px 18px; z-index: 500; font-weight: 700; }
 .skip-link:focus{ left: 12px; top: 12px; }
+
+/* =========================================================
+   Mobile refinements
+   ========================================================= */
+@media (max-width: 600px){
+  .container{ padding: 0 18px; }
+
+  .nav{ padding: 14px 18px; }
+  .brand svg{ width: 32px; height: 32px; }
+  .brand-name{ font-size: 0.98rem; }
+  .brand-role{ font-size: 0.64rem; }
+  .menu-toggle{ width: 42px; height: 42px; }
+
+  .crumb-inner{ padding: 12px 18px; gap: 10px; }
+  .crumb-labels{ font-size: 0.76rem; gap: 8px; }
+
+  .hero{ padding: 44px 0 40px; }
+  .hero-sub{ font-size: 1.02rem; margin: 16px 0 26px; }
+  .hero-actions .btn{ width: 100%; }
+  .hero-meta{ gap: 10px 18px; padding-top: 20px; }
+
+  .section{ padding: 44px 0; }
+  .section.tight{ padding: 32px 0; }
+  .section-head{ margin-bottom: 26px; }
+
+  .stat-cell{ padding: 20px 16px; }
+  .credential-cell{ padding: 20px 16px; }
+
+  .pub-card{ padding: 22px 20px; }
+  .pub-card h3{ font-size: 1.15rem; }
+  .pub-card .meta-row{ gap: 8px 12px; }
+
+  .pub-teaser{ padding: 20px 2px; gap: 6px; }
+
+  .page-title{ padding: 36px 0 12px; }
+  .article-head{ padding: 34px 0 20px; }
+  .abstract-block{ padding: 20px 20px; }
+  .article-actions .btn{ flex: 1 1 auto; }
+
+  .comments-head .count{ font-size: 1.6rem; }
+  .comment-item{ padding: 18px 18px; }
+  .comment-form{ padding-top: 30px; }
+
+  .contact-info-row{ grid-template-columns: 1fr; gap: 4px; padding: 16px 18px; }
+  .contact-info-row .label{ padding-top: 0; }
+
+  .pill-panel{ padding: 22px; }
+
+  .nav-overlay-list a{ font-size: clamp(1.5rem, 8vw, 2.2rem); padding: 12px 0; gap: 12px; }
+  .nav-overlay-foot{ padding: 16px 18px; }
+
+  .footer-brand{ margin-bottom: 12px; }
+  .site-footer{ padding: 40px 0 22px; }
+  .footer-bottom{ flex-direction: column; align-items: flex-start; }
+}
+

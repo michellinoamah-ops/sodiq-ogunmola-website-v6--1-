@@ -103,8 +103,8 @@ function renderHome(){
       </div>
       <div class="hero-meta">
         <div><strong>6+ yrs</strong> financial reporting and audit</div>
-        <div><strong>CFE</strong> Certified Fraud Examiner</div>
-        <div><strong>10</strong> published research articles</div>
+        <div><strong>CFE, CISA</strong> Fraud Examiner &amp; Info Systems Auditor</div>
+        <div><strong>11</strong> published research articles</div>
       </div>
     </div>
   </section>
@@ -151,8 +151,8 @@ function renderAbout(){
         </div>
       </div>
       <div>
-        <p class="lede">Sodiq Ogunmola is a financial reporting and risk professional with more than six years of experience across financial reporting, internal audit, and risk management for multinational organizations. He is a Certified Fraud Examiner and a dual master's candidate in Professional Accounting and Management Information Systems at Lamar University.</p>
-        <p>His work has helped close over &#8358;30 billion in combined equity and debt financing, cut month end reporting time by 20% through automation, and strengthen internal controls across teams applying U.S. GAAP, IFRS, and SOX standards. Outside of his day to day work, he researches how audit technology, artificial intelligence, and public financial management reform can make financial systems harder to manipulate and easier to trust, work reflected in the ten papers published on this site.</p>
+        <p class="lede">Sodiq Ogunmola is a financial reporting and risk professional with more than six years of experience across financial reporting, internal audit, and risk management for multinational organizations. He holds a dual master's degree in Professional Accounting and Management Information Systems from Lamar University, in addition to a Master of Business Administration &mdash; three master's degrees in total.</p>
+        <p>He is a Certified Fraud Examiner (CFE), a Certified Information Systems Auditor (CISA), and a chartered member of the Nigerian Institute of Management. His work has helped close over &#8358;30 billion in combined equity and debt financing, cut month end reporting time by 20% through automation, and strengthen internal controls across teams applying U.S. GAAP, IFRS, and SOX standards. Outside of his day to day work, he researches how audit technology, artificial intelligence, and public financial management reform can make financial systems harder to manipulate and easier to trust, work reflected in the eleven papers published on this site.</p>
       </div>
     </div>
   </section>
@@ -191,7 +191,7 @@ function renderPublications(){
     <div class="container" style="position:relative; z-index:1;">
       <span class="kicker">Publications</span>
       <h1>Research papers &amp; publications.</h1>
-      <p class="lede">Ten peer-reviewed and industry-reviewed articles spanning machine learning fraud detection, AI-driven financial reporting, agile public financial management, corporate governance, and environmental sustainability.</p>
+      <p class="lede">Eleven peer-reviewed and industry-reviewed articles spanning machine learning fraud detection, AI-driven financial reporting, agile public financial management, corporate governance, cybersecurity, and environmental sustainability.</p>
     </div>
   </section>
   <section class="section tight">
@@ -301,17 +301,25 @@ async function loadComments(pubId){
   const listEl = document.getElementById("comment-list");
   const countEl = document.getElementById("comment-count-num");
   try{
-    const snap = await db.collection("comments")
-      .where("articleId", "==", pubId)
-      .where("status", "==", "approved")
-      .orderBy("createdAt", "asc")
-      .get();
-    countEl.textContent = snap.size;
-    if(snap.empty){
+    /* Filter/sort client-side rather than chaining two where() clauses with
+       an orderBy() on a third field — that combination needs a Firestore
+       composite index to be created manually in the console, and without
+       it the query silently fails. A single where() on articleId only
+       needs Firestore's automatic single-field index. */
+    const snap = await db.collection("comments").where("articleId", "==", pubId).get();
+    const approved = snap.docs
+      .filter(doc => doc.data().status === "approved")
+      .sort((a, b) => {
+        const ta = a.data().createdAt && a.data().createdAt.toMillis ? a.data().createdAt.toMillis() : 0;
+        const tb = b.data().createdAt && b.data().createdAt.toMillis ? b.data().createdAt.toMillis() : 0;
+        return ta - tb;
+      });
+    countEl.textContent = approved.length;
+    if(approved.length === 0){
       listEl.innerHTML = `<p class="comment-empty">No comments yet. Be the first to share your thoughts.</p>`;
       return;
     }
-    listEl.innerHTML = snap.docs.map(doc => {
+    listEl.innerHTML = approved.map(doc => {
       const c = doc.data();
       const initials = (c.name || "?").trim().split(/\s+/).map(w => w[0]).slice(0,2).join("").toUpperCase();
       const when = c.createdAt && c.createdAt.toDate ? c.createdAt.toDate().toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" }) : "";
@@ -333,8 +341,9 @@ async function loadCommentCountsOnList(){
   for(const node of nodes){
     const id = node.dataset.commentCount;
     try{
-      const snap = await db.collection("comments").where("articleId","==",id).where("status","==","approved").get();
-      node.textContent = snap.size + (snap.size === 1 ? " Comment" : " Comments");
+      const snap = await db.collection("comments").where("articleId","==",id).get();
+      const count = snap.docs.filter(doc => doc.data().status === "approved").length;
+      node.textContent = count + (count === 1 ? " Comment" : " Comments");
     }catch(err){
       node.textContent = "";
     }

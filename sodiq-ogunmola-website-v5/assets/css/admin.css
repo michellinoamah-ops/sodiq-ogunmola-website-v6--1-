@@ -83,3 +83,79 @@
 .modal-close:hover{ color: var(--accent); }
 
 .tag-input-note{ font-size: 0.78rem; color: var(--text-faint); margin-top: -8px; margin-bottom: 14px; }
+
+/* =========================================================
+   Admin mobile refinements
+   ========================================================= */
+@media (max-width: 900px){
+  .admin-sidebar{
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 16px;
+    padding: 14px 16px;
+  }
+  .admin-brand{ flex: 1 1 auto; min-width: 0; }
+  .admin-brand b{ font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .admin-brand span{ display: none; }
+
+  .admin-nav{
+    order: 3;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    width: 100%;
+    padding-bottom: 2px;
+  }
+  .admin-nav a{
+    white-space: nowrap;
+    flex: none;
+    margin-bottom: 0;
+    padding: 9px 12px;
+    font-size: 0.84rem;
+  }
+
+  .admin-user{
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: none;
+  }
+  .admin-user .email{ display: none; }
+  .admin-user .btn-block{ width: auto; }
+
+  .admin-main{ padding: 22px 16px; }
+}
+
+@media (max-width: 480px){
+  .kpi-row{ grid-template-columns: 1fr 1fr; }
+  .kpi{ padding: 16px 16px; }
+  .kpi b{ font-size: 1.35rem; }
+
+  .admin-topbar h1{ font-size: 1.3rem; }
+  .admin-topbar{ margin-bottom: 22px; }
+
+  .panel-head{ padding: 15px 16px; }
+  .panel-body.pad{ padding: 18px; }
+
+  .review-card{ margin: 14px 14px; padding: 16px 16px; }
+  .review-card .date-edit{ flex-direction: column; align-items: flex-start; gap: 10px; }
+  .review-card .date-edit label{ width: 100%; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .review-card .date-input{ width: 100%; }
+  .review-card .stamp{ margin-left: 0; }
+
+  .msg-row{ grid-template-columns: auto 1fr; padding: 15px 16px; }
+  .msg-row .msg-actions{ grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; margin-top: 10px; }
+
+  .pub-row{ grid-template-columns: 1fr; }
+  .pub-row .actions{ margin-top: 4px; }
+
+  .modal{ padding: 22px 18px; }
+  .login-card{ padding: 30px 24px; }
+}
+

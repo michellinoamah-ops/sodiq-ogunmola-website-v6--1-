@@ -4,13 +4,13 @@
 
 const SITE = {
   name: "Sodiq Ogunmola",
-  suffix: "CFE",
+  suffix: "CFE, CISA",
   tagline: "Financial Reporting & Risk Research",
   email: "sodeeqogunmola@gmail.com",
   email2: "sogunmola@lamar.edu",
   phone: "+1 (409) 297-9305",
   linkedin: "https://www.linkedin.com/in/sodiq-ogunmola-olaleye",
-  location: "Beaumont, Texas, USA"
+  location: "Houston, Texas, USA"
 };
 
 const NAV_ITEMS = [
@@ -29,22 +29,6 @@ const SLIDESHOW_IMAGES = [
 ];
 
 const PUBLICATIONS = [
-  {
-    id: "secure-devsecops-federal-cloud",
-    title: "Advancing Secure DevSecOps Models to Strengthen Cyber Resilience of U.S. Government Cloud and Federal Information Systems",
-    subtitle: "",
-    journal: "International Journal of Science, Architecture, Technology, and Environment (IJSATE)",
-    year: "2026",
-    type: "Research Paper",
-    tags: ["DevSecOps", "Cyber Resilience", "Federal Information Systems", "Zero Trust", "FedRAMP"],
-    summary: "Synthesizes NIST, FedRAMP, GAO and CISA guidance to propose a socio-technical framework showing how automation, continuous authorization, supply-chain controls, workforce development and culture make Secure DevSecOps a pathway to stronger cyber resilience across federal government cloud systems.",
-    abstract: "The rapid transition of U.S. federal systems to cloud infrastructures has introduced new opportunities while simultaneously increasing cybersecurity risks. Traditional, episodic security assessments and perimeter-focused defenses are ill-suited to cloud-native architectures and continuous delivery practices. Secure DevSecOps embedding security throughout development, deployment, and operations presents a pragmatic pathway to increase the cyber resilience of government cloud services and federal information systems. This article synthesizes secondary data from federal standards (NIST SP 800-series), federal programs (FedRAMP), oversight reports (GAO), cybersecurity agencies (CISA), and peer-reviewed literature to (1) characterize the current resilience gap, (2) review DevSecOps mechanisms and evidence for their effectiveness in cloud contexts, (3) present a theoretical framework that links systems engineering resilience to DevSecOps practices, and (4) propose policy and technical recommendations for advancing secure DevSecOps adoption across federal agencies. Findings emphasize automation (IaC & policy-as-code), continuous monitoring/authorization, supply-chain controls, workforce development, and organizational culture as core enablers of resilient federal cloud operations.",
-    authors: "Taiwo Justice Olorunlana and Sodiq Ogunmola",
-    file: "assets/docs/secure-devsecops-federal-cloud.pdf",
-    link: "https://doi.org/10.63680/ijsate0126001.001",
-    image: "assets/images/headshot.jpg",
-    order: 1
-  },
   {
     id: "ml-fraud-detection-us-finance",
     title: "Enhancing Risk Management and Fraud Detection in the U.S. Financial Industry through Machine Learning Algorithms",
@@ -178,7 +162,7 @@ const PUBLICATIONS = [
     title: "Effects of Corporate Social Responsibility on Capital Market and Firm Performance",
     subtitle: "",
     journal: "British Journal of Multidisciplinary and Advanced Studies (BJMAS)",
-    year: "2024",
+    year: "2023",
     type: "Research Paper",
     tags: ["Corporate Social Responsibility", "Capital Markets", "Firm Performance"],
     summary: "Examines the relationship between corporate social responsibility and firm performance at Seplat Energy Plc, finding CSR donations have a positive but statistically insignificant effect on return on equity, return on assets, and share price over 2014 to 2020.",
@@ -187,7 +171,7 @@ const PUBLICATIONS = [
     file: "assets/docs/csr-capital-market-performance.pdf",
     link: "https://doi.org/10.37745/bjmas.2022.0495",
     image: "assets/images/campus.jpg",
-    order: 10
+    order: 11
   },
   {
     id: "waste-management-kampala",
@@ -203,6 +187,22 @@ const PUBLICATIONS = [
     file: "assets/docs/waste-management-kampala.pdf",
     link: "https://www.ajhssr.com",
     image: "assets/images/desk-agbada.jpg",
-    order: 11
+    order: 10
   },
+  {
+    id: "secure-devsecops-federal-cloud",
+    title: "Advancing Secure DevSecOps Models to Strengthen Cyber Resilience of U.S. Government Cloud and Federal Information Systems",
+    subtitle: "",
+    journal: "International Journal of Science, Architecture, Technology, and Environment (IJSATE)",
+    year: "2026",
+    type: "Research Paper",
+    tags: ["DevSecOps", "Cyber Resilience", "Federal Information Systems", "Zero Trust", "FedRAMP"],
+    summary: "Synthesizes NIST, FedRAMP, GAO and CISA guidance to propose a socio-technical framework showing how automation, continuous authorization, supply-chain controls, workforce development and culture make Secure DevSecOps a pathway to stronger cyber resilience across federal government cloud systems.",
+    abstract: "The rapid transition of U.S. federal systems to cloud infrastructures has introduced new opportunities while simultaneously increasing cybersecurity risks. Traditional, episodic security assessments and perimeter-focused defenses are ill-suited to cloud-native architectures and continuous delivery practices. Secure DevSecOps embedding security throughout development, deployment, and operations presents a pragmatic pathway to increase the cyber resilience of government cloud services and federal information systems. This article synthesizes secondary data from federal standards (NIST SP 800-series), federal programs (FedRAMP), oversight reports (GAO), cybersecurity agencies (CISA), and peer-reviewed literature to (1) characterize the current resilience gap, (2) review DevSecOps mechanisms and evidence for their effectiveness in cloud contexts, (3) present a theoretical framework that links systems engineering resilience to DevSecOps practices, and (4) propose policy and technical recommendations for advancing secure DevSecOps adoption across federal agencies. Findings emphasize automation (IaC & policy-as-code), continuous monitoring/authorization, supply-chain controls, workforce development, and organizational culture as core enablers of resilient federal cloud operations.",
+    authors: "Taiwo Justice Olorunlana and Sodiq Ogunmola",
+    file: "assets/docs/secure-devsecops-federal-cloud.pdf",
+    link: "https://doi.org/10.63680/ijsate0126001.001",
+    image: "assets/images/headshot.jpg",
+    order: 1
+  }
 ];
