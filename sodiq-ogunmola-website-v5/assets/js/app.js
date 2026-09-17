@@ -301,14 +301,18 @@ async function loadComments(pubId){
   const listEl = document.getElementById("comment-list");
   const countEl = document.getElementById("comment-count-num");
   try{
-    /* Filter/sort client-side rather than chaining two where() clauses with
-       an orderBy() on a third field — that combination needs a Firestore
-       composite index to be created manually in the console, and without
-       it the query silently fails. A single where() on articleId only
-       needs Firestore's automatic single-field index. */
-    const snap = await db.collection("comments").where("articleId", "==", pubId).get();
+    /* Both filters are equality checks, so Firestore serves this by merging
+       its automatic single-field indexes — no composite index needed. The
+       status filter is NOT optional: security rules only allow the public
+       to read approved comments, and Firestore rejects an entire query
+       unless its constraints guarantee every returned doc is readable.
+       Sorting by date is done client-side, because adding an orderBy on a
+       third field is what would force a composite index. */
+    const snap = await db.collection("comments")
+      .where("articleId", "==", pubId)
+      .where("status", "==", "approved")
+      .get();
     const approved = snap.docs
-      .filter(doc => doc.data().status === "approved")
       .sort((a, b) => {
         const ta = a.data().createdAt && a.data().createdAt.toMillis ? a.data().createdAt.toMillis() : 0;
         const tb = b.data().createdAt && b.data().createdAt.toMillis ? b.data().createdAt.toMillis() : 0;
@@ -341,8 +345,11 @@ async function loadCommentCountsOnList(){
   for(const node of nodes){
     const id = node.dataset.commentCount;
     try{
-      const snap = await db.collection("comments").where("articleId","==",id).get();
-      const count = snap.docs.filter(doc => doc.data().status === "approved").length;
+      const snap = await db.collection("comments")
+        .where("articleId", "==", id)
+        .where("status", "==", "approved")
+        .get();
+      const count = snap.size;
       node.textContent = count + (count === 1 ? " Comment" : " Comments");
     }catch(err){
       node.textContent = "";
